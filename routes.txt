@@ -1,0 +1,24 @@
+Session:
+GET /session_test
+o	This is for use in E2E testing scenarios to inspect and verify session variables during testing.
+o	When a client sends a GET request to this endpoint, the function 'echo_session_vars_test()' is called. 
+o	It checks whether the request is coming from a testing environment by calling a function named 'utils.is_testing_request(request)'.
+o	If it returns `False`, the function returns a response with the message "This endpoint is only meant for E2E tests" and an HTTP status code of 400 (Bad Request). 
+o	This suggests that the '/session_test' endpoint is intended for end-to-end (E2E) testing and not for regular use otherwise it proceeds further.
+o	It returns a JSON response containing the session variables as a dictionary. The session variables are stored in the 'session' object.
+o	The 'jsonify' function is used to convert the session dictionary into a JSON response.
+
+GET  /session_main
+o	When a GET request is made to the '/session_main' URL path, the `echo_session_vars_main` function will be executed.
+o	It appears to be checking whether the request is considered a "testing request" by calling a function `is_testing_request` from a module or utility named `utils`. This function likely checks some criteria in the request to determine if it's a valid testing request. If it's not a testing request, the function returns a response with the message "This endpoint is only meant for E2E tests" and a 400 status code (Bad Request). Test requests are performed by the e2e tests and have special privileges. Test requests are only allowed on non-Heroku instances.
+o	If it is, it returns a JSON response containing information about the Flask session and whether a proxy is enabled. It checks the value of an environment variable named 'PROXY_TO_TEST_HOST' to determine this.
+In summary, /session_test provides information about the session only, while /session_main provides information about the session as well as the status of a proxy (if enabled) for testing. Both routes share the same error response when the request is not intended for testing.
+
+
+
+
+
+
+
+
+
